@@ -26,17 +26,17 @@ function addNewPizza(pizzaObject) {
  */
 
 function placeOrder(pizzeName) {
-    const pizza = menu.filter(obj => obj.name === pizzeName)
+    const selectedPizza = menu.find(obj => obj.name === pizzeName)
 
-    if (pizza.length > 0) {
+    if (selectedPizza) {
         const oldCash = cashInRegister
-        const price = pizza.price
+        const price = selectedPizza.price
         
         cashInRegister = cashInRegister + parseInt(price)
 
         console.log("New Cash from", oldCash, "into", parseInt(cashInRegister))
 
-        console.log(pizza)
+        console.log(selectedPizza)
     } else {
         console.log("Pizza name not found")
     }
