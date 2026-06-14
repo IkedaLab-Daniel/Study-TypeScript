@@ -16,14 +16,14 @@ let menu: Pizza[] = [
 
 let cashInRegister = 100;
 const orderQueue = [];
-const nextOrderId = 1;
+let nextOrderId = 1;
 
 function addNewPizza(pizzaObject: Pizza) {
     menu.push(pizzaObject)
 }
 
 
-function placeOrder(pizzaName) {
+function placeOrder(pizzaName: string) {
     const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName)
     if (!selectedPizza) {
         console.error(`${pizzaName} does not exists in menu`)
@@ -41,9 +41,9 @@ function completedOrder(orderId: number) {
     return order
 }
 
-addNewPizza({ name: "Chicken Bacon Ranch", cost: 12 })
-addNewPizza({ name: "BBQ Chicken", cost: 12 })
-addNewPizza({ name: "Spicy Sausage", cost: 11 })
+addNewPizza({ name: "Chicken Bacon Ranch", price: 12 })
+addNewPizza({ name: "BBQ Chicken", price: 12 })
+addNewPizza({ name: "Spicy Sausage", price: 11 })
 
 placeOrder("Chicken Bacon Ranch")
 completedOrder(1)
