@@ -1,7 +1,3 @@
-// Challenge: try to figure out how to move the nested address object type
-// into a separate type definition. When done correctly, there should be no more
-// red errors in the editor
-
 type Address = {
     street: string
     city: string
@@ -12,18 +8,13 @@ type Person = {
     name: string
     age: number
     isStudent: boolean
-    address: Address
+    address?: Address
 }
 
 let person: Person = {
     name: "Ice",
     age: 1,
-    isStudent: true,
-    address: {
-        street: "123 main",
-        city: "any",
-        country: "ph"
-    }
+    isStudent: true
 }
 
 let person2: Person = {
@@ -37,3 +28,8 @@ let person2: Person = {
     }
 }
 
+function displayInfo(person) {
+    console.log(`${person.name} lives at ${person.address?.street}`)
+}
+
+displayInfo(person)
