@@ -9,11 +9,6 @@ type Order = {
     status: string
 }
 
-/**
- * Challenge: Add an Order type. It should have `id`, `pizza`, and `status` properties.
- * Look through the code if you need a reminder as to what data types those should be.
- */
-
 let menu: Pizza[] = [
     {
         name: "Cobra",
