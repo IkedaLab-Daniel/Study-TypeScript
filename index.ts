@@ -48,13 +48,12 @@ function completeOrder(orderId: number) {
 }
 
 /**
- * Challenge (part 1): add a return type to the getPizzaDetail function.
- * 
- * NOTE: you're very likely going to get a big TS warning once you do this 😅
- * Don't fret, we'll address this warning next!
+ * Challenge (part 2): explicitly type the return value of this function
+ * to tell TypeScript it could either be a Pizza object or undefined
+ * as the return value.
  */
 
-export function getPizzaDetail(identifier: string | number) {
+export function getPizzaDetail(identifier: string | number): Pizza | undefined {
     if (typeof identifier === "string") {
         return menu.find(pizza => pizza.name.toLowerCase() === identifier.toLowerCase())
     } else if (typeof identifier === "number") {
