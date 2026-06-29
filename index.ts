@@ -21,11 +21,11 @@ let cashInRegister = 100
 let nextOrderId = 1
 const orderQueue: Order[] = []
 
-function addNewPizza(pizzaObj: Pizza): void {
+function addNewPizza(pizzaObj: Pizza) {
     menu.push(pizzaObj)
 }
 
-function placeOrder(pizzaName: string): Order | undefined {
+function placeOrder(pizzaName: string) {
     const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName)
     if (!selectedPizza) {
         console.error(`${pizzaName} does not exist in the menu`)
@@ -37,7 +37,7 @@ function placeOrder(pizzaName: string): Order | undefined {
     return newOrder
 }
 
-function completeOrder(orderId: number): Order | undefined {
+function completeOrder(orderId: number) {
     const order = orderQueue.find(order => order.id === orderId)
     if (!order) {
         console.error(`${orderId} was not found in the orderQueue`)
@@ -47,14 +47,20 @@ function completeOrder(orderId: number): Order | undefined {
     return order
 }
 
+/**
+ * Challenge (part 1): add a return type to the getPizzaDetail function.
+ * 
+ * NOTE: you're very likely going to get a big TS warning once you do this 😅
+ * Don't fret, we'll address this warning next!
+ */
 
-export function getPizzaDetail(identifier: string | number): Pizza | undefined {
+export function getPizzaDetail(identifier: string | number) {
     if (typeof identifier === "string") {
         return menu.find(pizza => pizza.name.toLowerCase() === identifier.toLowerCase())
-    } else if (typeof identifier === "number"){
+    } else if (typeof identifier === "number") {
         return menu.find(pizza => pizza.id === identifier)
     } else {
-        throw new TypeError("Parameter `identifier` must be either a string or number")
+        throw new TypeError("Parameter `identifier` must be either a string or a number")
     }
 }
 
