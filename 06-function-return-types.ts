@@ -11,7 +11,7 @@ const users: User[] = [
     { username: "guest_user", role: "guest" }
 ];
 
-function fetchUserDetails(username: string) {
+function fetchUserDetails(username: string): User {
     const user = users.find(user => user.username === username)
     if (!user) {
         throw new Error(`User with username ${username} not found`)
