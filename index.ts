@@ -47,19 +47,21 @@ function completeOrder(orderId: number) {
     return order
 }
 
-/**
- * Challenge: create a new utility function called getPizzaDetail. It will take
- * a parameter called `identifier`, but there's a twist: we want this identifier
- * to be allowed to either be the string name of the pizza (e.g. "Pepperoni"),
- * OR to be the number ID of the pizza (e.g. 2).
- * 
- * Don't worry about the code inside the function yet, just create the function
- * signature, making sure to teach TS that the `identifier` parameter is allowed
- * to either be a string or a number.
- */
-
 function getPizzaDetail(identifier: string | number) {
-    console.log("DONE LESSS GOOOO!!!")
+    /**
+     * Challenge: write the code to check if the parameter is a string
+     * or a number, and use the menu.find() method accordingly
+     */
+    if (typeof(identifier) == "string") {
+        const result = menu.find(pizza => pizza.name == identifier)
+        return result
+    }
+
+    if (typeof(identifier) == "number") {
+        const result = menu.find(pizza => pizza.id == identifier)
+        return result
+    }
+
 }
 
 addNewPizza({ id: 5, name: "Chicken Bacon Ranch", price: 12 })
@@ -76,3 +78,7 @@ completeOrder(2)
 console.log("Menu:", menu)
 console.log("Cash in register:", cashInRegister)
 console.log("Order queue:", orderQueue)
+
+console.log("Test challenge 2:")
+const result = getPizzaDetail("Pepperoni")
+console.log(result)
