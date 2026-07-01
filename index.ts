@@ -47,38 +47,26 @@ function completeOrder(orderId: number) {
     return order
 }
 
-function getPizzaDetail(identifier: string | number) {
-    /**
-     * Challenge: write the code to check if the parameter is a string
-     * or a number, and use the menu.find() method accordingly
-     */
-    if (typeof(identifier) == "string") {
-        const result = menu.find(pizza => pizza.name == identifier)
-        return result
-    }
 
-    if (typeof(identifier) == "number") {
-        const result = menu.find(pizza => pizza.id == identifier)
-        return result
+export function getPizzaDetail(identifier: string | number) {
+    if (typeof identifier === "string") {
+        return menu.find(pizza => pizza.name.toLowerCase() === identifier.toLowerCase())
+    } else {
+        return menu.find(pizza => pizza.id === identifier)
     }
-
 }
 
-addNewPizza({ id: 5, name: "Chicken Bacon Ranch", price: 12 })
-addNewPizza({ id: 6, name: "BBQ Chicken", price: 12 })
-addNewPizza({ id: 7, name: "Spicy Sausage", price: 11 })
+// addNewPizza({ id: 5, name: "Chicken Bacon Ranch", price: 12 })
+// addNewPizza({ id: 6, name: "BBQ Chicken", price: 12 })
+// addNewPizza({ id: 7, name: "Spicy Sausage", price: 11 })
 
-placeOrder("Chicken Bacon Ranch")
-placeOrder("Pepperoni")
-completeOrder(1)
-placeOrder("Anchovy")
-placeOrder("Veggie")
-completeOrder(2)
+// placeOrder("Chicken Bacon Ranch")
+// placeOrder("Pepperoni")
+// completeOrder(1)
+// placeOrder("Anchovy")
+// placeOrder("Veggie")
+// completeOrder(2)
 
-console.log("Menu:", menu)
-console.log("Cash in register:", cashInRegister)
-console.log("Order queue:", orderQueue)
-
-console.log("Test challenge 2:")
-const result = getPizzaDetail("Pepperoni")
-console.log(result)
+// console.log("Menu:", menu)
+// console.log("Cash in register:", cashInRegister)
+// console.log("Order queue:", orderQueue)
