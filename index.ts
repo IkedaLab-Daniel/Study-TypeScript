@@ -27,11 +27,17 @@ const orderQueue: Order[] = []
  * Challenge:
  * Fix the addNewPizza function using the Omit utility type. This might
  * require more than just changing the "Pizza" typed `pizzaObj` parameter
+ * Return the new pizza object (with the id added) from the function.
  */
 
-function addNewPizza(pizzaObj: Pizza): void {
-    pizzaObj.id = nextPizzaId++
-    menu.push(pizzaObj)
+function addNewPizza(pizzaObj: Omit<Pizza, "id">): Pizza {
+    const pizza = {
+        id: nextPizzaId,
+        ...pizzaObj
+    }
+    menu.push(pizza)
+
+    return pizza
 }
 
 addNewPizza({ name: "Chicken Bacon Ranch", price: 12 })
