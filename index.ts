@@ -32,7 +32,7 @@ const orderQueue: Order[] = []
 
 function addNewPizza(pizzaObj: Omit<Pizza, "id">): Pizza {
     const pizza = {
-        id: nextPizzaId,
+        id: nextPizzaId++,
         ...pizzaObj
     }
     menu.push(pizza)
