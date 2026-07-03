@@ -1,48 +1,86 @@
-type User = {
+type Pizza = {
     id: number
-    username: string
-    role: "member" | "contributor" | "admin"
+    name: string
+    price: number
 }
 
-type UpdatedUser = Partial<User>
+type Order = {
+    id: number
+    pizza: Pizza
+    status: "ordered" | "completed"
+}
 
-let nextUserId = 1
+let cashInRegister = 100
+let nextOrderId = 1
+let nextPizzaId = 1
 
-const users: User[] = [
-    { id: nextUserId++, username: "john_doe", role: "member" },
-    { id: nextUserId++, username: "jane_smith", role: "contributor" }
-];
+const menu: Pizza[] = [
+    { id: nextPizzaId++, name: "Margherita", price: 8 },
+    { id: nextPizzaId++, name: "Pepperoni", price: 10 },
+    { id: nextPizzaId++, name: "Hawaiian", price: 10 },
+    { id: nextPizzaId++, name: "Veggie", price: 9 },
+]
 
-function updateUser(id: number, updates: UpdatedUser) {
-    const foundUser = users.find(user => user.id === id)
-    if (!foundUser) {
-        console.error("User not found!")
+const orderQueue: Order[] = []
+
+/**
+ * Challenge:
+ * Fix the addNewPizza function using the Omit utility type. This might
+ * require more than just changing the "Pizza" typed `pizzaObj` parameter
+ */
+
+function addNewPizza(pizzaObj: Pizza): void {
+    pizzaObj.id = nextPizzaId++
+    menu.push(pizzaObj)
+}
+
+addNewPizza({ name: "Chicken Bacon Ranch", price: 12 })
+addNewPizza({ name: "BBQ Chicken", price: 12 })
+addNewPizza({ name: "Spicy Sausage", price: 11 })
+
+
+
+
+
+function placeOrder(pizzaName: string): Order | undefined {
+    const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName)
+    if (!selectedPizza) {
+        console.error(`${pizzaName} does not exist in the menu`)
         return
     }
-    Object.assign(foundUser, updates)
+    cashInRegister += selectedPizza.price
+    const newOrder: Order = { id: nextOrderId++, pizza: selectedPizza, status: "ordered" }
+    orderQueue.push(newOrder)
+    return newOrder
 }
 
-// updateUser(1, { username: "new_john_doe" });
-// updateUser(4, { role: "contributor" });
-
-function addNewUser(newUser: any): User {
-    // Create a new variable called `user`, add an `id` property to it
-    // and spread in all the properties of the `newUser` object. Think
-    // about how you should set the type for this `user` object.
-    // Push the new object to the `users` array, and return the object
-    // from the function at the end
-    const newUserObj = {
-        id: nextUserId++,
-        username: newUser.username,
-        role: newUser.role
+function completeOrder(orderId: number): Order | undefined {
+    const order = orderQueue.find(order => order.id === orderId)
+    if (!order) {
+        console.error(`${orderId} was not found in the orderQueue`)
+        return
     }
-
-    users.push(newUserObj);
-
-    return newUserObj;
+    order.status = "completed"
+    return order
 }
 
-// example usage:
-addNewUser({ username: "joe_schmoe", role: "member" })
+export function getPizzaDetail(identifier: string | number): Pizza | undefined {
+    if (typeof identifier === "string") {
+        return menu.find(pizza => pizza.name.toLowerCase() === identifier.toLowerCase())
+    } else if (typeof identifier === "number") {
+        return menu.find(pizza => pizza.id === identifier)
+    } else {
+        throw new TypeError("Parameter `identifier` must be either a string or a number")
+    }
+}
 
-console.log(users)
+
+// placeOrder("Chicken Bacon Ranch")
+// placeOrder("Pepperoni")
+// completeOrder(1)
+// placeOrder("Veggie")
+// completeOrder(2)
+
+console.log("Menu:", menu)
+// console.log("Cash in register:", cashInRegister)
+// console.log("Order queue:", orderQueue)
