@@ -4,26 +4,36 @@ type User = {
     role: "member" | "contributor" | "admin"
 }
 
+type UpdatedUser = Partial<User>
+
+let nextUserId = 1
+
 const users: User[] = [
-    { id: 1, username: "john_doe", role: "member" },
-    { id: 2, username: "jane_smith", role: "contributor" },
-    { id: 3, username: "alice_jones", role: "admin" },
-    { id: 4, username: "charlie_brown", role: "member" },
+    { id: nextUserId++, username: "john_doe", role: "member" },
+    { id: nextUserId++, username: "jane_smith", role: "contributor" }
 ];
 
-function updateUser(id: number, updates: Partial<User>): undefined {
-    // Find the user in the array by the id
-    const user = users.find(user => user.id === id)
-    if (!user) {
-        console.error(`User with id ${id} not found.`)
+function updateUser(id: number, updates: UpdatedUser) {
+    const foundUser = users.find(user => user.id === id)
+    if (!foundUser) {
+        console.error("User not found!")
         return
     }
-    // Use Object.assign to update the found user in place. 
-    Object.assign(user, updates)
+    Object.assign(foundUser, updates)
 }
 
-// Example updates:
-updateUser(1, { username: "new_john_doe" });
-updateUser(4, { role: "contributor" });
+// updateUser(1, { username: "new_john_doe" });
+// updateUser(4, { role: "contributor" });
+
+function addNewUser(newUser: any): User {
+    // Create a new variable called `user`, add an `id` property to it
+    // and spread in all the properties of the `newUser` object. Think
+    // about how you should set the type for this `user` object.
+    // Push the new object to the `users` array, and return the object
+    // from the function at the end
+}
+
+// example usage:
+addNewUser({ username: "joe_schmoe", role: "member" })
 
 console.log(users)
