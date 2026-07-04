@@ -31,6 +31,15 @@ function addNewUser(newUser: any): User {
     // about how you should set the type for this `user` object.
     // Push the new object to the `users` array, and return the object
     // from the function at the end
+    const newUserObj = {
+        id: nextUserId++,
+        username: newUser.username,
+        role: newUser.role
+    }
+
+    users.push(newUserObj);
+
+    return newUserObj;
 }
 
 // example usage:
