@@ -11,7 +11,7 @@ const users: User[] = [
     { id: 4, username: "charlie_brown", role: "member" },
 ];
 
-function updateUser(id: number, updates: any): undefined {
+function updateUser(id: number, updates: Partial<User>): undefined {
     // Find the user in the array by the id
     const user = users.find(user => user.id === id)
     if (!user) {
